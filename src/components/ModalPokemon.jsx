@@ -5,13 +5,16 @@ import Evolutions from "./Evolutions";
 import { colorByStat } from "../constants/pokemon";
 import PokemonDetail from "./PokemonDetail";
 const ModalPokemon = ({ showModal, onCloseModal, pokemon }) => {
+  console.log("showModal =", showModal);
   return (
     <section
       style={{
         backgroundColor: colorByType[pokemon?.types?.[0]],
       }}
       className={`fixed lg:hidden top-0 left-0 right-0 h-screen transition-all duration-500 ${
-        showModal ? "visible opacity-100" : "invisible opacity-0"
+        showModal
+          ? "visible opacity-100"
+          : "invisible opacity-0 pointer-events-none"
       }`}
     >
       <button

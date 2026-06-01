@@ -2,12 +2,14 @@ import React from "react";
 import PokemonDetail from "./PokemonDetail";
 
 const Aside = ({ pokemon, isLoading }) => {
+  const hasPokemon = !!pokemon?.id;
+
   return (
     <section className="hidden lg:block sticky top-0 h-screen relative">
       {/* Detalle del Pokémon */}
       <article
         className={`absolute z-20 bottom-0 bg-white w-full h-[85%] rounded-tl-3xl rounded-tr-3xl text-center transition-all duration-500 ${
-          pokemon && !isLoading ? "translate-x-0" : "translate-x-full"
+          hasPokemon && !isLoading ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <PokemonDetail pokemon={pokemon} />
@@ -16,10 +18,10 @@ const Aside = ({ pokemon, isLoading }) => {
       {/* Pantalla inicial */}
       <article
         className={`absolute z-20 bottom-0 bg-white w-full h-[85%]
-  rounded-tl-3xl rounded-tr-3xl text-center grid place-content-center
-  transition-all duration-500 ${
-    pokemon ? "opacity-0 pointer-events-none" : "opacity-100"
-  }`}
+        rounded-tl-3xl rounded-tr-3xl text-center grid place-content-center
+        transition-all duration-500 ${
+          hasPokemon ? "opacity-0 pointer-events-none" : "opacity-100"
+        }`}
       >
         <header className="absolute left-1/2 -translate-x-1/2 top-0 -translate-y-[70%] scale-90">
           <img src="/rai.png" alt="Raichu" />

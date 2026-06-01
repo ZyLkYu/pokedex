@@ -1,70 +1,80 @@
 import React from "react";
-import { colorByStat } from "../constants/pokemon";
 import Evolutions from "./Evolutions";
-import { colorByType } from "../constants/pokemon";
+import { colorByStat, colorByType } from "../constants/pokemon";
 
 const PokemonDetail = ({ pokemon }) => {
+  if (!pokemon?.id) return null;
+
   return (
     <>
       <header className="absolute left-1/2 -translate-x-1/2 -translate-y-[92%] scale-[180%]">
-        <img className="pixelated" src={pokemon?.image} alt="" />
+        <img className="pixelated" src={pokemon.image} alt={pokemon.name} />
       </header>
+
       <div className="overflow-y-auto px-4 pt-12 grid gap-2 content-start h-full hidden-scroll">
         <span className="text-slate-400 text-sm font-semibold">
-          N°{pokemon?.id}
+          N°{pokemon.id}
         </span>
-        <h2 className="font-bold text-2xl capitalize ">{pokemon?.name}</h2>
+
+        <h2 className="font-bold text-2xl capitalize">{pokemon.name}</h2>
+
         <ul className="flex gap-2 justify-center">
-          {pokemon?.types?.map((type) => (
+          {pokemon.types?.map((type) => (
             <li
+              key={type}
               className="p-1 rounded-md px-2 text-white text-sm"
               style={{ backgroundColor: colorByType[type] }}
-              key={type}
             >
               {type}
             </li>
           ))}
         </ul>
+
         <div>
-          <h4 className="font-bold capitalize"> Pokedex Entry</h4>
-          <p className="text-slate-400">{pokemon?.description}</p>
+          <h4 className="font-bold capitalize">Pokedex Entry</h4>
+          <p className="text-slate-400">{pokemon.description}</p>
         </div>
-        {/*Altura y peso */}
-        <section className="grid grid-cols-2 gap-4 ">
+
+        <section className="grid grid-cols-2 gap-4">
           <div className="grid gap-2">
             <h4 className="font-bold capitalize">Height</h4>
-            <span className="bg-slate-100 block rounded-full p-1">0.4m</span>
+            <span className="bg-slate-100 block rounded-full p-1">
+              {pokemon.height ?? "—"}
+            </span>
           </div>
+
           <div className="grid gap-2">
             <h4 className="font-bold capitalize">Weight</h4>
-            <span className="bg-slate-100 block rounded-full p-1">4.2kg</span>
+            <span className="bg-slate-100 block rounded-full p-1">
+              {pokemon.weight ?? "—"}
+            </span>
           </div>
         </section>
-        {/*habilidades */}
+
         <section className="grid gap-2">
           <h4 className="font-bold capitalize">Abilities</h4>
           <ul className="grid grid-cols-2 gap-4">
-            {pokemon?.abilities?.map((ability) => (
+            {pokemon.abilities?.map((ability) => (
               <li
                 key={ability}
-                className="bg-slate-100 block rounded-full p-1 capitalize"
+                className="bg-slate-100 rounded-full p-1 capitalize"
               >
-                <span>{ability}</span>
+                {ability}
               </li>
             ))}
           </ul>
         </section>
-        {/*stats*/}
+
         <section className="grid gap-2">
-          <h4 className="font-bold capitalize">stats</h4>
+          <h4 className="font-bold capitalize">Stats</h4>
 
           <ul className="flex justify-center gap-3 flex-wrap">
-            {pokemon?.stats?.map((stat) => (
+            {pokemon.stats?.map((stat) => (
               <li
-                className={`p-1 rounded-full ${colorByStat[stat.name]}`}
                 key={stat.name}
+                className={`p-1 rounded-full ${colorByStat[stat.name]}`}
               >
-                <div className=" rounded-full w-[26px] aspect-square grid place-content-center">
+                <div className="w-[26px] aspect-square grid place-content-center">
                   <span className="text-[10px] text-white font-semibold">
                     {stat.name}
                   </span>
@@ -75,6 +85,7 @@ const PokemonDetail = ({ pokemon }) => {
             ))}
           </ul>
         </section>
+
         <section className="grid gap-2">
           <h4 className="font-bold capitalize">Evolutions</h4>
           <Evolutions evolutions={pokemon?.evolutions ?? []} />

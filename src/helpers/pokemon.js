@@ -40,29 +40,30 @@ const formatAbilities = (abilities) => {
 };
 
 const getPokemonDescription = (pokemonSpecie) =>
-  pokemonSpecie.flavor_text_entries[1].flavor_text;
+  pokemonSpecie.flavor_text_entries[0].flavor_text;
 
 const getEvolutions = async (evolutionInfo) => {
   const evolutions = [];
   let evolutionData = evolutionInfo.chain;
 
-  do {
-    const evoDetails = evolutionData["evolution_details"][0];
+  while (evolutionData) {
+    const evoDetails = evolutionData.evolution_details?.[0];
 
     evolutions.push({
       name: evolutionData.species.name,
       min_level: evoDetails?.min_level ?? 1,
     });
 
-    evolutionData = evolutionData.evolves_to[0];
-  } while (evolutionData);
-
-  const promises = getEvolutionsData(evolutions);
+    evolutionData = evolutionData.evolves_to?.[0] ?? null;
+  }
 
   try {
+    const promises = getEvolutionsData(evolutions);
     const responses = await Promise.allSettled(promises);
     assignInfoToEvolutions(responses, evolutions);
-  } catch (err) {}
+  } catch (err) {
+    console.error(err);
+  }
 
   return evolutions;
 };
