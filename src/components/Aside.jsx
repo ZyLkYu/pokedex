@@ -9,7 +9,7 @@ const Aside = ({ pokemon, isLoading }) => {
       {/* Detalle del Pokémon */}
       <article
         className={`absolute z-20 bottom-0 bg-white w-full h-[85%] rounded-tl-3xl rounded-tr-3xl text-center transition-all duration-500 ${
-          hasPokemon && !isLoading ? "translate-x-0" : "translate-x-full"
+          hasPokemon && !isLoading ? "opacity-100" : "opacity-0"
         }`}
       >
         <PokemonDetail pokemon={pokemon} />

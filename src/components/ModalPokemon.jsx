@@ -2,7 +2,6 @@ import React from "react";
 import { IconX } from "@tabler/icons-react";
 import { colorByType } from "../constants/pokemon";
 import Evolutions from "./Evolutions";
-import { colorByStat } from "../constants/pokemon";
 import PokemonDetail from "./PokemonDetail";
 const ModalPokemon = ({ showModal, onCloseModal, pokemon }) => {
   console.log("showModal =", showModal);

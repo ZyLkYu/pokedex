@@ -1,7 +1,7 @@
 import React from "react";
 import PokemonPreview from "./PokemonPreview";
 import usePokemonContext from "../hooks/UsePokemonContext";
-// eslint-disable-next-line
+
 const PokemonList = ({ pokemons }) => {
   const { showPokemon } = usePokemonContext();
   return (
